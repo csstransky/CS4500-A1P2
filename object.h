@@ -1,19 +1,27 @@
-// Andrew Stam, Hak Joon Lee, CS 4500 - Assignment 1
+//lang::CwC
 #pragma once
 
-// Generic, base-class for other Objects to inherit from
+#include <cstdlib>
+
+/**
+ * A class that represents the top of the object hierarchy.
+ * author: chasebish */
 class Object {
-	public:
-		// Construct a new Object
-		Object();
+public:
+  /** CONSTRUCTORS & DESTRUCTORS **/
 
-		// Destruct this Object
-		~Object();
+  /* Default Object constructor */
+  Object();
 
-		// Does this Object equal the given Object?
-		bool equals(Object *other);
+  /* Default Object destructor, to be overriden by subclasses */
+  virtual ~Object();
 
-		// What is the hash representation of this Object?
-		size_t hash();
-}
 
+  /** VIRTUAL METHODS **/
+
+  /* Returns whether two objects are equal, to be overriden by subclasses */
+  virtual bool equals(Object* const obj);
+
+  /* Returns an object's hash value. Identical objects should have identical hashes */
+  virtual size_t hash();
+};

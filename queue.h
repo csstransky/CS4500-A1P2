@@ -3,7 +3,7 @@
 #include "object.h"
 #include "string.h"
 
-// Represents a queue of objects (where String inherits from Object)
+// Represents a queue of Objects
 class Queue {
 	public:
 		// Create a new Queue of Objects
@@ -34,6 +34,7 @@ class Queue {
 		Object* get(size_t index);
 };
 
+// Represents a queue of Strings
 class StrQueue : public Queue {
 	public:
 		// Insert the given String at the end of the Queue
@@ -47,5 +48,4 @@ class StrQueue : public Queue {
 
 		// Return the String at the given index without removing the element
 		String* get(size_t index);	
-
 };
