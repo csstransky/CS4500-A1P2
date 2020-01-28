@@ -2,6 +2,7 @@
 
 // Import assert purely for testing
 #include <assert.h>
+#include <stdio.h>
 #include "object.h"
 #include "queue.h"
 

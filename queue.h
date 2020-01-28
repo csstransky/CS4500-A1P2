@@ -1,5 +1,6 @@
 // Andrew Stam, Hak Joon Lee - CS 4500 Assignment 1
 #pragma once
+#include <stdio.h>
 #include "object.h"
 #include "string.h"
 
@@ -45,6 +46,7 @@ class StrQueue : public Queue {
 
 		// Destruct the StrQueue
 		~StrQueue();
+		
 		// Insert the given String at the end of the Queue
 		void enqueue(String* o);	
 	
