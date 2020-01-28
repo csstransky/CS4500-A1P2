@@ -123,40 +123,51 @@ void test_queue_error_handling() {
 	// Queue creation
 	Queue* q = new Queue();
 
-	// Trying to peek on an empty queue should return an error
-	try {
-		q->peek();
-		// Shouldn't make it here
-		assert(false);
-	} catch (int e) {
-		assert(true);
-	}
+	// Trying to peek on an empty queue should return NULL
+	assert(q->peek() == NULL);
 
 	q->enqueue(o1);
 	// This should work now that there's 1 element
 	assert(q->get(0)->equals(q->peek()));
 
-	// Trying to get an element out of bounds should return an error
-	try {
-		q->get(1);
-		// Shouldn't make it here
-		assert(false);
-	} catch (int e) {
-		assert(true);
-	}
+	// Trying to get an element out of bounds should return NULL
+	assert(q->get(1) == NULL);
 
-	// After emptying queue, calling dequeue should be an error
+	// After emptying queue, calling dequeue should return NULL
 	assert(q->dequeue()->equals(o1));
-	try {
-		q->dequeue();
-		// Shouldn't make it here
-		assert(false);
-	} catch (int e) {
-		assert(true);
-	}
+	assert(q->dequeue() == NULL);
 
 	// Call the destructor and delete objects after creation
 	delete o1;
+	delete q;
+}
+
+void test_string_queue() {
+	// String creation 
+	String* s1 = new String("Hello");
+
+	// StrQueue creation
+	StrQueue* q = new StrQueue();
+
+	// Check peek on empty queue returns NULL 
+	assert(q->peek() == NULL);
+
+	// Add a string to the queue and that it's added properly
+	q->enqueue(s1);
+	assert(q->peek()->equals(s1));
+	assert(q->size() == 1);	
+
+	// Check accessing element in queue works properly
+	assert(q->get(0)->equals(s1));
+	assert(q->get(1) == NULL);
+
+	// Check removing elements from the queue works properly
+	assert(q->dequeue()->equals(s1));
+	assert(q->dequeue() == NULL);
+	assert(q->size() == 0);	
+
+	// Call the destructor and delete objects after creation
+	delete s1;
 	delete q;
 }
 
@@ -168,5 +179,6 @@ int main() {
 	test_queue_clear();
 	test_queue_get();
 	test_queue_error_handling();
+	test_string_queue();
 }
 
