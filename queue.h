@@ -11,7 +11,7 @@ class Queue {
 		Queue();
 
 		// Destruct the Queue
-		~Queue();
+		virtual ~Queue();
 
 		// Insert the given Object at the end of the Queue
 		void enqueue(Object* o);	
