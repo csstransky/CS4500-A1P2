@@ -17,7 +17,7 @@ class Queue {
 		void enqueue(Object* o);	
 	
 		// Remove and return the Object at the front of the Queue
-		// If the queue is empty, return NULL
+		// If the queue is empty, return nullptr
 		Object* dequeue();
 
 		// Clear the elements of the Queue
@@ -27,14 +27,14 @@ class Queue {
 		virtual bool isEmpty();
 
 		// Return the Object at the front of the Queue without removing the element
-		// If the queue is empty, return NULL
+		// If the queue is empty, return nullptr
 		Object* peek();
 
 		// Return the size of the Queue
 		virtual size_t size();
 
 		// Return the Object at the given index without removing the element
-		// If out of bounds, return NULL
+		// If out of bounds, return nullptr
 		Object* get(size_t index);
 };
 
@@ -51,14 +51,14 @@ class StrQueue : public Queue {
 		void enqueue(String* o);	
 	
 		// Remove and return the String at the front of the Queue
-		// If the queue is empty, return NULL
+		// If the queue is empty, return nullptr
 		String* dequeue();
 
 		// Return the String at the front of the Queue without removing the element
-		// If the queue is empty, return NULL
+		// If the queue is empty, return nullptr
 		String* peek();
 
 		// Return the String at the given index without removing the element
-		// If out of bounds, return NULL
+		// If out of bounds, return nullptr
 		String* get(size_t index);	
 };
