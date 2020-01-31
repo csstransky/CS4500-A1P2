@@ -172,6 +172,61 @@ void test_string_queue() {
 	delete q;
 }
 
+void test_large_size(size_t large_size) {
+    Object* object1 = new Object();
+    String* string1 = new String("hi");
+    Queue* queue1 = new Queue();
+    StrQueue* string_queue1 = new StrQueue();
+
+    Object* head_string = new String("START");
+    queue1->enqueue(head_string);
+    for(size_t ii = 0; ii < large_size; ii++) {
+        queue1->enqueue(object1);
+        queue1->enqueue(string1);
+        // Head string should always be in front no matter what
+        assert(queue1->peek()->equals(head_string));
+    }
+    Object* tail_string = new String("TAIL");
+    queue1->enqueue(tail_string);
+
+    // Queue should have 2 * large_size + 2 elements at this point
+    assert(queue1->size() == 2 * large_size + 2);
+
+    // Start at the head
+    assert(queue1->dequeue()->equals(head_string));
+    for(size_t ii = 0; ii < large_size; ii++) {
+        // We should see an Object here
+        assert(queue1->peek()->equals(object1));
+        assert(queue1->dequeue()->equals(object1));
+
+        assert(queue1->peek()->equals(string1));
+        // All of these values *should* be Strings, otherwise the test will fail
+        String* string_reborn = dynamic_cast<String*>(queue1->dequeue());
+        assert(string_reborn->equals(string1));
+        // Move all Strings into the StrQueue
+        string_queue1->enqueue(string_reborn);
+    }
+    // We should see the tail now
+    assert(queue1->peek()->equals(tail_string));
+
+    // We should have every String in here except for head and tail
+    assert(string_queue1->size() == large_size);
+
+    // This shouldn't explode by calling clear multiple times
+    queue1->clear();
+    queue1->clear();
+    queue1->clear();
+    assert(queue1->isEmpty());
+
+	// Deconstructor all our toys
+	delete object1;
+	delete string1;
+	delete queue1;
+	delete string_queue1;
+	delete head_string;
+	delete tail_string;
+}
+
 // Test cases given a correct implementation of Object and Queue
 int main() {
 	test_object_equals();
@@ -181,5 +236,6 @@ int main() {
 	test_queue_get();
 	test_queue_error_handling();
 	test_string_queue();
+    test_large_size(10000); // Your queue should be able to blast this in about a second
 }
 
